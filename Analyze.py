@@ -22,7 +22,7 @@ def conf(data):
 #%% get data
 columnNames = ["timestamp", "company", "level", "title", "yearly_compensation", "location", "years_of_experience", "years_at_company", "tag", "base_salary", "stock_grant_value", "bonus", "gender", "other_details", "city_id", "dmaid", "row_number", "masters", "bachelors", "doctorate", "high_school", "some_college", "asian", "white", "two_or_more", "black", "hispanic", "race", "education"]
 faangNames = ["Facebook", "Amazon", "Apple", "Netflix", "Google"]
-dataframe = pd.read_csv('Levels_Fyi_Salary_Data.csv',header=None).dropna()
+dataframe = pd.read_csv('data.csv',header=None).dropna()
 dataframe.drop(index=dataframe.index[0], 
         axis=0, 
         inplace=True)
@@ -32,7 +32,18 @@ d = dataframe
 #%% data peeking
 #print(dataframe[["yearly_compensation","education"]])
 
+#%% Total yearly compensation histogram
+dataset = pd.read_csv("data.csv").dropna()
+dataset.head()
 
+#dataset['totalyearlycompensation'] = np.log(dataset['totalyearlycompensation'])
+
+plt.figure()
+plt.hist(x='totalyearlycompensation', data = dataset, bins=np.arange(10000, 1500000, 25000))
+plt.title("Histogram of total yearly compensation")
+plt.xlabel("total yearly compensation")
+plt.ylabel("Number of people")
+plt.show()
 #%% t_testing the mean
 
 
