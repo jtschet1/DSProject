@@ -42,6 +42,13 @@ cnts = dataframe['gender'].value_counts()
 plt.bar(cnts.index[0:2], cnts.values[0:2])
 plt.show()
 
+## Salary differences
+femaleSalo = np.array(d[d["gender"] == 'Female'][["yearly_compensation"]]).astype(int).mean()
+maleSalo = np.array(d[d["gender"] == 'Male'][["yearly_compensation"]]).astype(int).mean()
+
+print("Female mean salary: " + str(femaleSalo))
+print("Male mean salary: " + str(maleSalo))
+
 #%% Comparing education levels
 fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
 cnts1 = dataframe['bachelors'].astype(int).value_counts()
@@ -62,7 +69,7 @@ plt.xlabel("total yearly compensation")
 plt.ylabel("Number of people")
 plt.show()
 #%% t_testing the mean
-
+d = dataframe
 
 faang = d[d["company"].isin(faangNames)][["yearly_compensation","years_at_company"]]
 #print(type(faang))
