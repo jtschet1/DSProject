@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy import stats
+
 #user created function to calculate the 95 confidence interval of data set
 def conf(data):
   n = len(data)-1
@@ -29,17 +30,33 @@ dataframe.drop(index=dataframe.index[0],
 
 dataframe.columns = columnNames
 d = dataframe
-#%% data peeking
-#print(dataframe[["yearly_compensation","education"]])
+#%% Data Cleaning
+droppedColumns = ['other_details', "asian", "white", "two_or_more", "black", "hispanic"]
+
+#Removing redundant race columns
+for col in droppedColumns:
+    del dataframe[col]
+#%% Counts of female/males in STEM
+plt.figure()
+cnts = dataframe['gender'].value_counts()
+plt.bar(cnts.index[0:2], cnts.values[0:2])
+plt.show()
+
+#%% Comparing education levels
+fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+cnts1 = dataframe['bachelors'].astype(int).value_counts()
+cnts2 = dataframe['masters'].astype(int).value_counts()
+ax2.bar(["Bachelor", 'No Bachelors'], cnts1.values)
+ax1.bar(["Master", 'No Masters'], cnts2.values[::-1])
+plt.show()
 
 #%% Total yearly compensation histogram
-dataset = pd.read_csv("Levels_Fyi_Salary_Data.csv").dropna()
-dataset.head()
+dx = np.array(dataframe['yearly_compensation']).astype(int)
 
 #dataset['totalyearlycompensation'] = np.log(dataset['totalyearlycompensation'])
 
 plt.figure()
-plt.hist(x='totalyearlycompensation', data = dataset, bins=np.arange(10000, 1500000, 25000))
+plt.hist(dx, bins=np.arange(10000, 1500000, 25000))
 plt.title("Histogram of total yearly compensation")
 plt.xlabel("total yearly compensation")
 plt.ylabel("Number of people")
