@@ -40,6 +40,8 @@ for col in droppedColumns:
 plt.figure()
 cnts = dataframe['gender'].value_counts()
 plt.bar(cnts.index[0:2], cnts.values[0:2])
+plt.title("Counts of males/females in STEM")
+plt.ylabel("Number of people")
 plt.show()
 
 ## Salary differences
@@ -50,7 +52,10 @@ print("Female mean salary: " + str(femaleSalo))
 print("Male mean salary: " + str(maleSalo))
 
 #%% Comparing education levels
+#plt.figure()
 fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+fig.suptitle("Master education vs. Bachelor")
+plt.ylabel("Number of people")
 cnts1 = dataframe['bachelors'].astype(int).value_counts()
 cnts2 = dataframe['masters'].astype(int).value_counts()
 ax2.bar(["Bachelor", 'No Bachelors'], cnts1.values)
